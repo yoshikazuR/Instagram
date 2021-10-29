@@ -116,7 +116,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let postData = self.postArray[indexPath!.row]
                         let commentsCount = String(postData.comments.count+1)
                         
-                        postData.comments[commentsCount+"_"+postData.name!] = text
+                        postData.comments[commentsCount+"_"+(Auth.auth().currentUser?.displayName)!] = text
                             
                         let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
                         

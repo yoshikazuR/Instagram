@@ -57,8 +57,11 @@ class PostTableViewCell: UITableViewCell {
         }
         if postData.comments.count > 0 {
             var commentsString = ""
-            for c in postData.comments {
-                commentsString += "\(c.key.components(separatedBy: "_")[1]) : \(c.value) \n"
+            
+            let dataArray = postData.comments.keys.sorted { $0 < $1 }
+            print(dataArray)
+            for c in dataArray {
+                commentsString += "\(c.components(separatedBy: "_")[1]) : \((postData.comments[c])!) \n"
             }
             print(commentsString)
             self.commentLabel.text = commentsString
