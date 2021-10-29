@@ -15,7 +15,7 @@ class PostData: NSObject {
     var date: Date?
     var likes: [String] = []
     var isLiked: Bool = false
-    var comments: [String] = []
+    var comments: [String:String] = [:]
     
     init(document: QueryDocumentSnapshot) {
         self.id = document.documentID
@@ -29,7 +29,7 @@ class PostData: NSObject {
         if let likes = postDic["likes"] as? [String] {
             self.likes = likes
         }
-        if let comments = postDic["comments"] as? [String] {
+        if let comments = postDic["comments"] as? [String:String] {
             self.comments = comments
         }
         if let myid = Auth.auth().currentUser?.uid {

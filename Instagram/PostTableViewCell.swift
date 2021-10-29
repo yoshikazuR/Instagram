@@ -31,6 +31,7 @@ class PostTableViewCell: UITableViewCell {
     
     func setPostData(_ postData: PostData) {
         postImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        self.commentLabel.numberOfLines = 0
         let imageRef = Storage.storage().reference().child(Const.ImagePath).child(postData.id + ".jpg")
         postImageView.sd_setImage(with: imageRef)
 
@@ -55,7 +56,12 @@ class PostTableViewCell: UITableViewCell {
             self.likeButton.setImage(buttonImage, for: .normal)
         }
         if postData.comments.count > 0 {
-            self.commentLabel.text = "\(postData.comments[0]) : \(postData.comments[1])"
+            var commentsString = ""
+            for c in postData.comments {
+                commentsString += "\(c.key.components(separatedBy: "_")[1]) : \(c.value) \n"
+            }
+            print(commentsString)
+            self.commentLabel.text = commentsString
         }else {
             self.commentLabel.text = ""
         }

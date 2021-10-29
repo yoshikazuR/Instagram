@@ -114,11 +114,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         let indexPath = self.tableView.indexPathForRow(at: point)
 
                         let postData = self.postArray[indexPath!.row]
+                        let commentsCount = String(postData.comments.count+1)
                         
-                        let commentData:[String] = [postData.name!, text]
+                        postData.comments[commentsCount+"_"+postData.name!] = text
                             
                         let postRef = Firestore.firestore().collection(Const.PostPath).document(postData.id)
-                        postRef.updateData(["comments": commentData])
+                        
+                        postRef.updateData(["comments": postData.comments])
                     }
                 }
             )
